@@ -249,7 +249,8 @@ Also test an invalid username to see the friendly error state.
 
 ## Project Demo
 
-The project runs locally with `npm run dev`. A video demo link has not been added yet.
+The project runs locally with `npm run dev`. 
+Video link-https://drive.google.com/file/d/1eTL3JzPCL7y0ReaBZw0KKLq9v3mRn0Dk/view?usp=sharing
 
 ## License And Assets
 
