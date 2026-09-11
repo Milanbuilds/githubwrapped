@@ -1,8 +1,31 @@
+![GitHub Wrapped](docs/images/github-wrapped-main.png)
+
 # GitHub Wrapped
 
 GitHub Wrapped is a cinematic developer report for public GitHub profiles. Enter a username and the app turns real repository data into a ten-slide roast show with memes, character side posters, achievements, red flags, a developer archetype, and a final Git Score.
 
 The project is designed as a fast hackathon demo: no login, OAuth, database, accounts, or frontend build step.
+
+## Project Description
+
+GitHub Wrapped reads a public GitHub profile and turns its real repository signals into an entertaining developer personality report. It combines repository data, deterministic analytics, visual memes, character reactions, and a final Git Score without pretending to know private activity.
+
+## The Problem That Does Not Exist
+
+Developers have no reliable way to find out what their public GitHub activity says about them, so we created an unnecessarily dramatic investigation into their repositories.
+
+## The Solution Nobody Asked For
+
+Enter a public GitHub username and GitHub Wrapped fetches the profile, analyzes the repositories, detects patterns, and presents the results as a ten-slide comedy show with real evidence.
+
+## Basic Details
+
+### Team Name: NIK
+
+### Team Members
+
+- Team Lead: Johan Eljo - Sahrdaya College of Engineering and Technology
+- Member 2: Milan Krishna - Sahrdaya College of Engineering and Technology
 
 ## Demo
 
@@ -130,6 +153,24 @@ The archetype is selected by deterministic rules based on inactivity, naming pat
 
 Every slide includes a data-aware roast or meme. The right side of the presentation uses one unique poster variant per slide featuring Peter Griffin, Stewie Griffin, or Brian Griffin. The images are loaded from Wikimedia-hosted URLs and have a graceful visual fallback if unavailable.
 
+## Screenshots
+
+![GitHub Wrapped main screen](docs/images/github-wrapped-main.png)
+
+The landing screen where a judge enters a public GitHub username.
+
+![GitHub Wrapped report slide](docs/images/github-wrapped-slide-02.png)
+
+An example of the report's data-driven roast presentation.
+
+![GitHub Wrapped report detail](docs/images/github-wrapped-slide-03.png)
+
+An example of the report content, meme treatment, and character side poster.
+
+![Git Score final reveal](docs/images/github-wrapped-final-score.png)
+
+The final Git Score, archetype, summary metrics, and closing roast.
+
 ## Interaction
 
 - Username form submission
@@ -151,6 +192,20 @@ public/styles.css     Visual system, responsive layout, animations
 package.json          Run scripts and dependency metadata
 .env.example          Optional environment variable reference
 ```
+
+## Workflow
+
+```mermaid
+flowchart LR
+    A[Enter GitHub username] --> B[Node.js server]
+    B --> C[GitHub public API]
+    C --> D[Profile and repository data]
+    D --> E[Deterministic analytics]
+    E --> F[Ten interactive slides]
+    F --> G[Git Score and developer archetype]
+```
+
+The browser submits a public GitHub username to the Node server. The server fetches public profile and repository data, normalizes it, and returns the analytics payload. The frontend turns that payload into the interactive GitHub Wrapped report.
 
 ## Validation
 
@@ -193,6 +248,15 @@ Also test an invalid username to see the friendly error state.
 - No profile persistence
 - Only public GitHub data is requested
 - GitHub tokens, when provided, remain server-side
+
+## Team Contributions
+
+- Johan Eljo: Backend implementation, GitHub API integration, repository fetching, analytics normalization, error handling, and server-side demo reliability.
+- Milan Krishna: Frontend implementation, visual system, responsive slide layouts, memes, character side posters, navigation, animations, and README/demo preparation.
+
+## Project Demo
+
+The project runs locally with `npm run dev`. A video demo link has not been added yet.
 
 ## License And Assets
 
