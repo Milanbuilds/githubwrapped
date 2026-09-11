@@ -27,13 +27,6 @@ Enter a public GitHub username and GitHub Wrapped fetches the profile, analyzes 
 - Team Lead: Johan Eljo - Sahrdaya College of Engineering and Technology
 - Member 2: Milan Krishna - Sahrdaya College of Engineering and Technology
 
-## Demo
-
-Run the app locally and open:
-
-```text
-http://localhost:3000
-```
 
 ## Setup
 
