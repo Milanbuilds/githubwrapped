@@ -28,36 +28,15 @@ Enter a public GitHub username and GitHub Wrapped fetches the profile, analyzes 
 - Member 2: Milan Krishna - Sahrdaya College of Engineering and Technology
 
 
-## Setup
+## Live Demo
 
-Requirements:
+Open the deployed app:
 
-- Node.js 18 or newer
-- A public internet connection for GitHub API requests and remote character images
-
-Install dependencies:
-
-```bash
-npm install
+```text
+https://milanbuilds.github.io/githubwrapped/
 ```
 
-Start the app:
-
-```bash
-npm run dev
-```
-
-The server prints the local URL when it starts.
-
-## Optional GitHub Token
-
-The app works with unauthenticated public GitHub API access for normal demos. To increase the API rate limit, provide a server-side token:
-
-```bash
-GITHUB_TOKEN="your_token" npm run dev
-```
-
-Never put the token in frontend code or commit it to the repository.
+The GitHub Pages build uses public GitHub API requests directly in the browser. The repository also includes `server.js` for local/server-side development and optional server-side GitHub token support.
 
 ## How It Works
 
@@ -200,29 +179,6 @@ flowchart LR
 
 The browser submits a public GitHub username to the Node server. The server fetches public profile and repository data, normalizes it, and returns the analytics payload. The frontend turns that payload into the interactive GitHub Wrapped report.
 
-## Validation
-
-Syntax checks:
-
-```bash
-node --check server.js
-node --check public/app.js
-```
-
-API smoke test:
-
-```bash
-curl "http://localhost:3000/api/github?username=octocat"
-```
-
-Recommended demo profiles:
-
-- `octocat`
-- `torvalds`
-- Any judge's public username
-
-Also test an invalid username to see the friendly error state.
-
 ## Limitations
 
 - Exact hourly coding history is not available from the data used by this demo, so the app does not invent a peak coding hour.
@@ -249,8 +205,9 @@ Also test an invalid username to see the friendly error state.
 
 ## Project Demo
 
-The project runs locally with `npm run dev`. 
-Video link-https://drive.google.com/file/d/1eTL3JzPCL7y0ReaBZw0KKLq9v3mRn0Dk/view?usp=sharing
+Watch the project demo:
+
+https://drive.google.com/file/d/1eTL3JzPCL7y0ReaBZw0KKLq9v3mRn0Dk/view?usp=sharing
 
 ## License And Assets
 
