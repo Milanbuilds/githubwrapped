@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#111111" />
+    <meta name="description" content="A cinematic personality report built from your public GitHub activity." />
+    <title>GitHub Wrapped</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=IBM+Plex+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      /* Final layout guard: the poster and editorial content never share a text box. */
+      .obituary .slide {
+        display: grid !important;
+        grid-template-columns: minmax(0, 1fr) 190px !important;
+        align-items: center !important;
+        column-gap: clamp(24px, 4vw, 64px) !important;
+        height: 100svh !important;
+        min-height: 0 !important;
+        max-height: 100svh !important;
+        overflow: hidden !important;
+      }
+      .obituary .slide-main {
+        position: static !important;
+        min-width: 0 !important;
+        width: 100% !important;
+        max-height: calc(100svh - 155px) !important;
+        overflow-y: auto !important;
+        overflow-x: hidden !important;
+        padding: 34px 14px 12px 0 !important;
+        scrollbar-width: thin;
+      }
+      .obituary .slide-main > .section-mark {
+        position: absolute !important;
+        top: 72px !important;
+        left: 9vw !important;
+        right: auto !important;
+        z-index: 5 !important;
+        margin: 0 !important;
+        pointer-events: none !important;
+      }
+      .obituary .slide-main > * { max-width: 100% !important; }
+      .obituary .slide-main h1,
+      .obituary .slide-main h2,
+      .obituary .slide-main h3,
+      .obituary .slide-main p,
+      .obituary .slide-main strong,
+      .obituary .slide-main span,
+      .obituary .slide-main small {
+        max-height: none !important;
+        transform: none !important;
+      }
+      .obituary .notice-title,
+      .obituary .section-title,
+      .obituary .achievement-title,
+      .obituary .verdict,
+      .obituary .spotlight-name {
+        font-size: clamp(42px, 5.4vw, 84px) !important;
+        line-height: 0.94 !important;
+        overflow-wrap: anywhere !important;
+      }
+      .obituary .estate-number,
+      .obituary .severity,
+      .obituary .aura {
+        font-size: clamp(104px, 16vw, 235px) !important;
+        line-height: 0.82 !important;
+      }
+      .obituary .language-word { font-size: clamp(52px, 8vw, 124px) !important; line-height: 0.9 !important; }
+      .obituary .statement { font-size: clamp(42px, 5.6vw, 88px) !important; line-height: 0.94 !important; }
+      .obituary .standfirst { font-size: clamp(15px, 1.35vw, 20px) !important; line-height: 1.18 !important; }
+      .obituary .annotation { font-size: 14px !important; line-height: 1.22 !important; }
+      .obituary .meme {
+        max-width: min(100%, 330px) !important;
+        margin: 16px 0 8px !important;
+        padding: 9px 12px 11px !important;
+        transform: none !important;
+      }
+      .obituary .meme strong { font-size: clamp(25px, 2.7vw, 40px) !important; line-height: 0.94 !important; }
+      .obituary .meme em { font-size: 11px !important; line-height: 1.2 !important; }
+      .obituary .side-poster {
+        width: 190px !important;
+        max-width: 190px !important;
+        max-height: 420px !important;
+        overflow: hidden !important;
+        align-self: center !important;
+        justify-self: center !important;
+        transform: none !important;
+      }
+      .obituary .poster-image { height: 205px !important; }
+      .obituary .poster-name { font-size: 22px !important; line-height: 0.94 !important; }
+      .obituary .poster-variant { font-size: 8px !important; line-height: 1.18 !important; }
+      .obituary .side-poster p { font-size: 10px !important; line-height: 1.2 !important; }
+      .obituary .conclusion-grid { grid-template-columns: minmax(0, 1fr) !important; gap: 10px !important; }
+      .obituary .final-type { font-size: clamp(25px, 3vw, 45px) !important; line-height: .86 !important; }
+      .obituary .final-line { font-size: 16px !important; line-height: 1.05 !important; }
+      .obituary .closing-note strong { font-size: 18px !important; line-height: .95 !important; }
+      @media (max-width: 700px) {
+        .obituary .slide {
+          display: flex !important;
+          flex-direction: column !important;
+          align-items: stretch !important;
+          justify-content: flex-start !important;
+          height: 100svh !important;
+          max-height: 100svh !important;
+          overflow-y: auto !important;
+          padding: 78px 22px 62px !important;
+        }
+        .obituary .slide-main {
+          max-height: none !important;
+          overflow: visible !important;
+          padding: 30px 0 0 !important;
+        }
+        .obituary .slide-main > .section-mark { top: 57px !important; left: 22px !important; }
+        .obituary .slide-main > * { max-width: 100% !important; }
+        .obituary .notice-title,
+        .obituary .section-title,
+        .obituary .achievement-title,
+        .obituary .verdict,
+        .obituary .spotlight-name { font-size: clamp(40px, 13vw, 70px) !important; line-height: 0.94 !important; }
+        .obituary .estate-number,
+        .obituary .severity,
+        .obituary .aura { font-size: clamp(100px, 33vw, 180px) !important; }
+        .obituary .language-word { font-size: clamp(52px, 17vw, 100px) !important; }
+        .obituary .statement { font-size: clamp(42px, 14vw, 72px) !important; line-height: 0.94 !important; }
+        .obituary .side-poster { width: 155px !important; max-width: 155px !important; max-height: 330px !important; margin: 18px 0 4px auto !important; align-self: flex-end !important; }
+        .obituary .poster-image { height: 160px !important; }
+        .obituary .poster-name { font-size: 19px !important; }
+        .obituary .meme { max-width: 100% !important; }
+        .obituary .slide-1 .side-poster,
+        .obituary .slide-2 .side-poster { display: none !important; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain"></div>
+    <main id="app" class="app"></main>
+    <script src="/app.js"></script>
+  </body>
+</html>

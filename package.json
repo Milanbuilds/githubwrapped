@@ -1,0 +1,16 @@
+{
+  "name": "kanye-listens-to-malayalam",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "node server.js",
+    "start": "node server.js",
+    "backend": "uvicorn backend.main:app --reload --port 8000",
+    "sample:ppt": "node scripts/create-sample-ppt.mjs",
+    "logpose:ppt": "node scripts/create-logpose-ppt.mjs"
+  },
+  "dependencies": {
+    "pptxgenjs": "^3.12.0"
+  }
+}

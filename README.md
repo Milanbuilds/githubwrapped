@@ -1,103 +1,199 @@
-<img width="1280" height="640" alt="git (1)" src="https://github.com/user-attachments/assets/8920b256-2ba8-4988-b824-5351134eb4bd" />
+# GitHub Wrapped
 
+GitHub Wrapped is a cinematic developer report for public GitHub profiles. Enter a username and the app turns real repository data into a ten-slide roast show with memes, character side posters, achievements, red flags, a developer archetype, and a final Git Score.
 
+The project is designed as a fast hackathon demo: no login, OAuth, database, accounts, or frontend build step.
 
-# [Project Name] 🎯
+## Demo
 
+Run the app locally and open:
 
-## Basic Details
-### Team Name: [Name]
+```text
+http://localhost:3000
+```
 
+## Setup
 
-### Team Members
-- Team Lead: [Name] - [College]
-- Member 2: [Name] - [College]
-- Member 3: [Name] - [College]
+Requirements:
 
-### Project Description
-[2-3 lines about what your project does]
+- Node.js 18 or newer
+- A public internet connection for GitHub API requests and remote character images
 
-### The Problem (that doesn't exist)
-[What ridiculous problem are you solving?]
+Install dependencies:
 
-### The Solution (that nobody asked for)
-[How are you solving it? Keep it fun!]
+```bash
+npm install
+```
 
-## Technical Details
-### Technologies/Components Used
-For Software:
-- [Languages used]
-- [Frameworks used]
-- [Libraries used]
-- [Tools used]
+Start the app:
 
-For Hardware:
-- [List main components]
-- [List specifications]
-- [List tools required]
+```bash
+npm run dev
+```
 
-### Implementation
-For Software:
-# Installation
-[commands]
+The server prints the local URL when it starts.
 
-# Run
-[commands]
+## Optional GitHub Token
 
-### Project Documentation
-For Software:
+The app works with unauthenticated public GitHub API access for normal demos. To increase the API rate limit, provide a server-side token:
 
-# Screenshots (Add at least 3)
-![Screenshot1](Add screenshot 1 here with proper name)
-*Add caption explaining what this shows*
+```bash
+GITHUB_TOKEN="your_token" npm run dev
+```
 
-![Screenshot2](Add screenshot 2 here with proper name)
-*Add caption explaining what this shows*
+Never put the token in frontend code or commit it to the repository.
 
-![Screenshot3](Add screenshot 3 here with proper name)
-*Add caption explaining what this shows*
+## How It Works
 
-# Diagrams
-![Workflow](Add your workflow/architecture diagram here)
-*Add caption explaining your workflow*
+The Node server in `server.js`:
 
-For Hardware:
+1. Receives a GitHub username at `GET /api/github?username=<username>`.
+2. Fetches the public GitHub user profile.
+3. Fetches up to three pages of public repositories.
+4. Excludes forked repositories from the core report.
+5. Normalizes repository, language, star, fork, follower, and activity data.
+6. Returns the report payload to the browser.
 
-# Schematic & Circuit
-![Circuit](Add your circuit diagram here)
-*Add caption explaining connections*
+The browser in `public/app.js` renders the landing page, loading sequence, ten slides, meme panels, character posters, keyboard navigation, swipe navigation, and restart flow.
 
-![Schematic](Add your schematic diagram here)
-*Add caption explaining the schematic*
+## API Endpoint
 
-# Build Photos
-![Components](Add photo of your components here)
-*List out all components shown*
+```text
+GET /api/github?username=octocat
+```
 
-![Build](Add photos of build process here)
-*Explain the build steps*
+The response includes:
 
-![Final](Add photo of final product here)
-*Explain the final build*
+- Public profile identity
+- Avatar and bio
+- Followers and following
+- Repository list
+- Stars and forks
+- Primary repository languages
+- Created, updated, and pushed dates
+- Topics when available
+- Inactive repository list
+- Top language
+- Most-starred repository
+- Red flag score
+- Git Score
+- Deterministic archetype
 
-### Project Demo
-# Video
-[Add your demo video link here]
-*Explain what the video demonstrates*
+## Analytics
 
-# Additional Demos
-[Add any extra demo materials/links]
+The analytics calculations are deterministic and based on real returned GitHub data.
 
-## Team Contributions
-- [Name 1]: [Specific contributions]
-- [Name 2]: [Specific contributions]
-- [Name 3]: [Specific contributions]
+### Repository Signals
 
----
-Made with ❤️ at TinkerHub Useless Projects 
+- Public repository count
+- Total stars
+- Total forks
+- Language distribution
+- Top language
+- Most-starred repository
+- Oldest repository
+- Inactive repositories
+- Recently active repositories
+- Repository naming patterns such as `final`, `temp`, `test`, `v2`, and `new`
 
-![Static Badge](https://img.shields.io/badge/TinkerHub-24?color=%23000000&link=https%3A%2F%2Fwww.tinkerhub.org%2F)
-![Static Badge](https://img.shields.io/badge/UselessProjects--26-26?link=https%3A%2F%2Ftinkerhub.org%2Fevents%2F1M8ORET9A1%2Fuseless-projects-3.0)
+### Red Flag Score
 
+The score uses inactivity, repository naming patterns, and lack of stars. It is capped from 0 to 100 and is intended as entertainment, not a professional evaluation.
 
+### Git Score
 
+The visible product language calls the score `Git Score`. Internally the normalized response field remains `aura` for compatibility with the existing analytics implementation. The calculation itself is unchanged.
+
+### Archetypes
+
+The archetype is selected by deterministic rules based on inactivity, naming patterns, language count, stars, and repository count. The UI gives the internal archetypes Roast Roastmaster display names such as:
+
+- The unfinished storyteller
+- The bug magnet
+- The one-person ecosystem
+- The sleeper hit
+- The rare follow-through
+- The solution looking for a problem
+
+## Ten Slides
+
+1. Guest introduction
+2. Repository numbers
+3. Primary programming language
+4. Achievements
+5. Recent activity
+6. Ghosted projects
+7. Repository spotlight
+8. Red flag score
+9. Developer verdict
+10. Final Git Score and conclusion
+
+Every slide includes a data-aware roast or meme. The right side of the presentation uses one unique poster variant per slide featuring Peter Griffin, Stewie Griffin, or Brian Griffin. The images are loaded from Wikimedia-hosted URLs and have a graceful visual fallback if unavailable.
+
+## Interaction
+
+- Username form submission
+- Five-step loading sequence
+- Previous and next controls
+- Right and left arrow keys
+- Spacebar to advance
+- Escape to return home
+- Touch swipe navigation
+- Analyze another profile action
+
+## Project Structure
+
+```text
+server.js             Static server, GitHub proxy, analytics normalization
+public/index.html     HTML shell, fonts, layout guard styles
+public/app.js         App state, rendering, slides, memes, poster selection
+public/styles.css     Visual system, responsive layout, animations
+package.json          Run scripts and dependency metadata
+.env.example          Optional environment variable reference
+```
+
+## Validation
+
+Syntax checks:
+
+```bash
+node --check server.js
+node --check public/app.js
+```
+
+API smoke test:
+
+```bash
+curl "http://localhost:3000/api/github?username=octocat"
+```
+
+Recommended demo profiles:
+
+- `octocat`
+- `torvalds`
+- Any judge's public username
+
+Also test an invalid username to see the friendly error state.
+
+## Limitations
+
+- Exact hourly coding history is not available from the data used by this demo, so the app does not invent a peak coding hour.
+- Commit counts and commit-message history are not fetched.
+- Repository fetching is capped at three pages.
+- Unauthenticated GitHub API rate limits can apply.
+- Language distribution is based on repository primary-language metadata.
+- Remote character images require internet access.
+- The report is playful and should not be treated as a real developer assessment.
+
+## Privacy
+
+- No user accounts
+- No authentication
+- No database
+- No profile persistence
+- Only public GitHub data is requested
+- GitHub tokens, when provided, remain server-side
+
+## License And Assets
+
+The application code in this repository is a hackathon/demo project. The Family Guy character poster images are remote Wikimedia-hosted assets used for the visual demo and remain subject to their respective rights and licenses. Replace them with permitted assets for public production use.
